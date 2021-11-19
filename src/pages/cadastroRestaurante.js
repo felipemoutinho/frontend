@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import '../css/crestaurant.css';
 import '../css/index.css';
 import React,{Component} from 'react';
+import api from '../services/api.js';
 
 export default class Restaurant extends Component {
     
@@ -14,7 +15,7 @@ export default class Restaurant extends Component {
         super(props);
             this.state ={
                 nome: '',
-                password: '',
+                senha: '',
                 especialidade:'',
                 endereco:'',
                 cidade:'',
@@ -32,8 +33,10 @@ export default class Restaurant extends Component {
             })
         }
 
-        submitForm(){
-                alert(JSON.stringify(this.state));
+        async submitForm(event){
+            event.preventDefault();
+            const response = await api.post('restaurantes',this.state);
+            console.log(response);
         }
 
     render(){
@@ -52,7 +55,7 @@ export default class Restaurant extends Component {
 
                             <Form.Group as={Col} controlId="formGridPassword">
                             <Form.Label className="details-form">Password</Form.Label>
-                            <Form.Control  className="font-forms" type="password" placeholder="Password" value={this.state.password}  onChange={this.changeField.bind(this,'password')}/>
+                            <Form.Control  className="font-forms" type="password" placeholder="Password" value={this.state.senha}  onChange={this.changeField.bind(this,'senha')}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
