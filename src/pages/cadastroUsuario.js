@@ -8,13 +8,15 @@ import '../css/cusuario.css';
 import '../css/index.css';
 import React,{Component} from 'react';
 
+import api from '../services/api';
+
 export default class User extends Component {
     
     constructor(props){
         super(props);
             this.state ={
                 email: '',
-                password: '',
+                senha: '',
                 nome:'',
                 endereco:'',
                 cidade:'',
@@ -31,8 +33,11 @@ export default class User extends Component {
             })
         }
 
-        submitForm(){
-                alert(JSON.stringify(this.state));
+        async submitForm(e){
+            e.preventDefault();
+            const response = await api.post('usuarios', this.state);
+            console.log(response);
+            //alert(JSON.stringify(this.state));
         }
 
     render(){
@@ -51,7 +56,7 @@ export default class User extends Component {
 
                             <Form.Group as={Col} controlId="formGridPassword">
                             <Form.Label className="details-form">Password</Form.Label>
-                            <Form.Control  className="font-forms" type="password" placeholder="Password" value={this.state.password}  onChange={this.changeField.bind(this,'password')}/>
+                            <Form.Control  className="font-forms" type="password" placeholder="Password" value={this.state.senha}  onChange={this.changeField.bind(this,'senha')}/>
                             </Form.Group>
                         </Form.Row>
 
